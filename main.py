@@ -1,5 +1,12 @@
-from pyrogram import Client, filters
+import asyncio
 import os
+from pyrogram import Client, filters
+
+# 🔥 FIX FOR PYTHON 3.14
+try:
+    asyncio.get_event_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
 
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
@@ -18,7 +25,8 @@ async def ping(client, message):
 
 @app.on_message(filters.command("alive", prefixes="."))
 async def alive(client, message):
-    await message.reply(f"✅ Alive\nOwner: {OWNER_NAME}")
+    await message.reply(f"✅ Alive\n👑 Owner: {OWNER_NAME}")
 
 print("Bot Started Successfully 🔥")
+
 app.run()
